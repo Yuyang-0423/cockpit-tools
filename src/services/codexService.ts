@@ -316,8 +316,16 @@ export async function importCodexAccessTokenAccount(
   });
 }
 
-export async function importCodexFromLocal(): Promise<CodexAccount> {
-  return await invoke('import_codex_from_local');
+/**
+ * 从官方 Codex 本机凭据存储导入账号。
+ *
+ * `instanceId` 省略或为 `null` 时读取默认实例；传入多开实例 ID 时读取该实例的
+ * profile 目录（官方客户端按 `CODEX_HOME` 分别落盘凭据）。
+ */
+export async function importCodexFromLocal(
+  instanceId?: string | null,
+): Promise<CodexAccount> {
+  return await invoke('import_codex_from_local', { instanceId: instanceId ?? null });
 }
 
 /** 从 JSON 字符串导入账号 */
@@ -556,6 +564,26 @@ export async function updateCodexAccountName(
   return await invoke('update_codex_account_name', { accountId, name });
 }
 
+/**
+ * 通过 Grok 平台账号添加 Codex 供应商账号。
+ *
+ * 账号本身不保存上游 API Key：运行态使用绑定的 Grok 账号 OAuth 令牌，
+ * 并由 Grok 账号的模型目录决定客户端可见模型。
+ */
+export async function addCodexAccountFromGrok(
+  grokAccountId: string,
+  options?: {
+    apiModelCatalog?: string[] | null;
+    accountName?: string | null;
+  },
+): Promise<CodexAccount> {
+  return await invoke('add_codex_account_from_grok', {
+    grokAccountId,
+    apiModelCatalog: options?.apiModelCatalog ?? null,
+    accountName: options?.accountName ?? null,
+  });
+}
+
 export async function updateCodexApiKeyCredentials(
   accountId: string,
   apiKey: string,
@@ -654,11 +682,13 @@ export async function updateCodexAccountInstanceAccess(
   accountId: string,
   accessMode?: string | null,
   startupModel?: string | null,
+  imageGenerationAccountIds?: string[] | null,
 ): Promise<CodexAccount> {
   return await invoke('update_codex_account_instance_access', {
     accountId,
     accessMode: accessMode ?? null,
     startupModel: startupModel ?? null,
+    imageGenerationAccountIds: imageGenerationAccountIds ?? null,
   });
 }
 

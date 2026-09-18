@@ -1,5 +1,10 @@
 {
   "pelican": {
+    "results": "Test sonuçları",
+    "usageTokens": "{{tokens}} token",
+    "quotaUsed": "5h kullanıldı {{percent}}%",
+    "quotaLeft": "5h kaldı {{percent}}%",
+    "openBrowser": "Tarayıcıda aç",
     "error": {
       "stateUnavailable": "Görev durumu kullanılamıyor. Yeniden deneyin.",
       "accountsRequired": "En az bir hesap seçin.",
@@ -77,7 +82,8 @@
     "clearAll": "Tümünü temizle",
     "confirmClearAll": "Tüm Pelican testleri temizlensin mi?",
     "clearAllHelp": "Tüm test geçmişi ve oluşturulan dosyalar kalıcı olarak silinecek. Bu işlem geri alınamaz.",
-    "search": "Hesap ara"
+    "search": "Hesap ara",
+    "viewError": "Hatayı görüntüle"
   },
   "common": {
     "quotaRefreshScheduler": {
@@ -117,6 +123,8 @@
     "windowsOperation": {
       "title": "Windows işlemi tamamlanmadı",
       "accessDeniedDescription": "Windows bu işlemi reddetti. Hedef daha yüksek yetkiyle çalışıyor veya korumalı bir konumda olabilir.",
+      "storeLaunchBlockedDescription": "Windows yapılandırılmış Codex istemcisini çalıştıramadı: Store klasörü bir güncellemeyle değiştirilmiş veya artık çalıştırmaya izin vermiyor olabilir. Yanlış hesabın açılmaması için doğrudan başlatma engellendi. “Yolu yeniden algıla ve yeniden dene” seçeneğini kullanın; yine başarısız olursa bu örneği CLI moduna geçirin.",
+      "repairPath": "Yolu yeniden algıla ve yeniden dene",
       "fileInUseDescription": "Hedef dosya başka bir program tarafından kullanılıyor. Programı kapatıp yeniden deneyin.",
       "programNotFoundDescription": "Windows gerekli programı bulamadı. Kurulumu veya ayarlanan yolu kontrol edin.",
       "portDeniedDescription": "Windows bağlantı noktasına erişimi engelledi. Bir sistem ilkesi veya başka bir program kullanıyor olabilir.",
@@ -605,7 +613,7 @@
         "summary": "Ön eki olmayan modeller geçerli aboneliği kullanır; cpa/gpt-5.5 gibi ön ekli modeller üçüncü taraf bir API'ye iletilir. Her ikisi de yerel yönlendirme hizmetine bağlıdır.",
         "rowSummary": "Ön eki olmayan modeller geçerli aboneliği kullanır; cpa/gpt-5.5 gibi ön ekli modeller üçüncü taraf bir API'ye iletilir. Her ikisi de yerel yönlendirme hizmetine bağlıdır.",
         "confirmEnableTitle": "Üçüncü taraf API yönlendirmesi etkinleştirilsin mi?",
-        "confirmEnableMessage": "Codex model istekleri yerel Cockpit Tools hizmeti üzerinden yönlendirilecektir. Hizmet çalışmıyorsa hem abonelik hem de üçüncü taraf modelleri kullanılamayabilir. Kaydettiğinizde oturum açılışında başlatma etkinleştirilecektir.\n\nYönlendirme etkinleştirilsin mi?",
+        "confirmEnableMessage": "Codex model istekleri yerel Cockpit Tools hizmeti üzerinden yönlendirilecektir. Hizmet çalışmıyorsa hem abonelik hem de üçüncü taraf modelleri kullanılamayabilir.\n\nYönlendirme etkinleştirilsin mi?",
         "confirmEnableAction": "Etkinleştir",
         "confirmDisableTitle": "Üçüncü taraf API yönlendirmesi devre dışı bırakılsın mı?",
         "confirmDisableMessage": "Bu değişiklik yürürlüğe girdikten sonra yerel ağ geçidi durdurulacak, yerel abonelik erişimi geri yüklenecek ve üçüncü taraf modelleri kullanılamayacaktır.\n\nDevre dışı bırakılsın mı?",
@@ -836,10 +844,11 @@
       "codexSyncWsl": "Codex'i WSL ile eşitle",
       "codexSyncWslDesc": "Varsayılan Codex hesabı değiştirildikten sonra auth.json ve config.toml WSL içindeki Codex dizinine de yazılır.",
       "codexAppUiInjection": "API hizmeti kotası",
-      "codexAppUiInjectionDesc": "Codex örneği yeniden başlatıldıktan sonra Cockpit Tools API hizmetinin hesap sayısını, haftalık ve 5 saatlik kotasını oluşturucunun altında gösterir. Cockpit Tools arka planda çalışmaya devam etmelidir; uygulama tamamen kapatıldığında veya ağ kullanılamadığında güncellemeler durur.",
+      "codexAppUiInjectionDesc": "Codex örneği yeniden başlatıldıktan sonra oluşturucunun altındaki kota rozeti seçilen modeli izler: DeepSeek hesap bakiyesini, Grok kendi kotasını, GPT modelleri ise haftalık ve 5 saatlik kotayı gösterir. Cockpit Tools arka planda çalışmaya devam etmelidir; uygulama tamamen kapatıldığında veya ağ kullanılamadığında güncellemeler durur.",
       "codexAppUiInjectionPoolLabel": "Hesaplar",
       "codexAppUiInjectionWeeklyLabel": "Hafta",
       "codexAppUiInjectionFiveHourLabel": "5 sa",
+      "codexAppUiInjectionMissingLabel": "—",
       "codexWslConfigDir": "WSL Codex dizini",
       "codexWslConfigDirDesc": "WSL içindeki .codex dizinini girin. \\\\wsl.localhost\\ yolları desteklenir.",
       "codexWslConfigDirPlaceholder": "Örnek: \\\\wsl.localhost\\Ubuntu-24.04\\home\\user\\.codex",
@@ -2079,6 +2088,7 @@
       "manage": "Modelleri yönet",
       "disabledDescription": "Varsayılan olarak kapalıdır. Modeller, sıralama ve akıl yürütme düzeyleri resmi kataloğu izler.",
       "enabledDescription": "Yapılandırılmış katalog etkin. Model ekleyip kaldırabilirsiniz; liste artık resmi katalogla otomatik güncellenmez.",
+      "routingManagedHint": "Karma yönlendirme bu model kataloğunu yalnızca örnek çalışırken geçici olarak kullanır ve örnek durduğunda geri yükler. Buradaki anahtarın durumu değişmez.",
       "enableConfirmTitle": "Model yönetimi açılsın mı?",
       "enableConfirmDescription": "Codex burada yapılandırılan kataloğu kullanır. Modelleri ayarlayabilirsiniz; ancak liste artık otomatik güncellenmez.",
       "enableConfirmAction": "Aç ve yapılandır"
@@ -2183,6 +2193,24 @@
     "refreshAllSuccess": "Yenileme tamamlandı, {{count}} hesap başarılı",
     "refreshAllPartialFailed": "Yenileme tamamlandı, {{success}} / {{total}} hesap başarılı, bazıları başarısız",
     "launchPreview": {
+      "accessModeTitle": "Başlatma modu",
+      "prosLabel": "Avantajlar:",
+      "consLabel": "Dezavantajlar:",
+      "accessModeDescription": "DeepSeek'in nasıl başlayacağını seçin; modlar model değiştirme, OAuth ve görsel aktarımında farklıdır.",
+      "accessModeGatewayPros": "1: Codex içinde model değiştirme\n2: OAuth hesaplarını bağlama ve uzaktan sıkıştırma, tarayıcı denetimi gibi OAuth özelliklerini kullanma\n3: Görsel üretimini iletmek için GPT hesaplarını yapılandırma",
+      "accessModeGatewayCons": "1: Örnek yerel ağ geçidini gerektirir ve doğrudan bağlantıdan biraz yavaştır",
+      "accessModeDirectPros": "1: Ağ geçidi yok, en hızlı seçenek",
+      "accessModeDirectCons": "1: Codex içinde model değiştirilemez, OAuth bağlama ve görsel aktarımı yok",
+      "accessModeCdpPros": "1: Doğrudan bağlantı ile aynı hız\n2: Resmi Codex model listesinden Flash / Pro değiştirilebilir",
+      "accessModeCdpCons": "1: Resmi istemciye enjeksiyon gerektirir, OAuth bağlama ve görsel aktarımı yok",
+      "imageGenPickerDesc": "Bir görsel isteği geldiğinde iletilir: önce temel model işler, ardından görsel modeli görseli üretir ve seçilen hesapların kotasının bir kısmını tüketir.",
+      "imageGenSwitchTitle": "Yalnızca ağ geçidi modunda",
+      "imageGenSwitchDescription": "GPT görsel üretimini etkinleştirmek için ağ geçidi moduna geçmek gerekir. Geçip etkinleştirilsin mi?",
+      "imageGenSwitchYes": "Evet",
+      "imageGenSwitchNo": "Hayır",
+      "imageGenTitle": "GPT görsel üretimini etkinleştir",
+      "oauthBindingHint": "Bağladıktan sonra başlatma normal bir hesapla tamamen aynıdır ve tüm OAuth özellikleri (uzaktan sıkıştırma, tarayıcı denetimi, çeşitli eklentiler vb.) kullanılabilir; görüşmeler yine geçerli API Key sağlayıcısı üzerinden yürür.",
+      "oauthBindingChange": "Değiştir",
       "title": "Codex Başlatma Önizlemesi",
       "description": "Önce yapılandırın ve denetleyin; istemci yalnızca Değiştir veya Başlat seçildikten sonra değişir.",
       "notApplied": "Henüz uygulanmadı",
@@ -2331,6 +2359,7 @@
       "apiKey": "Anahtar",
       "statusRunning": "Çalışıyor",
       "statusStopped": "Durduruldu",
+      "internalSchedulerLabel": "Dahili zamanlayıcı",
       "statusDisabled": "Devre dışı",
       "emptyMembers": "Koleksiyonda henüz hesap yok",
       "footerHint": "Erişim kapsamı: {{scope}}",
@@ -2361,8 +2390,6 @@
         "restrictFreeToggle": "Free hesapları sınırla",
         "sessionAffinityConfirmTitle": "Oturum bağlılığını aç?",
         "sessionAffinityDescription": "Açıldığında aynı konuşma mümkün olduğunca aynı hesabı kullanır. Hesap kullanılamazsa yönlendirme başka hesaba geçebilir; süre dolunca hesap yeniden seçilir.",
-        "chatApiKeyUnsupported": "Chat Completions desteklenmez",
-        "deepseekUnsupported": "DeepSeek henüz yok",
         "pendingOauthUnsupported": "Bekleyen eklenemez",
         "freeNoticeRestricted": "Free hesaplar sınırlıdır. Seçmek için bunu kapatın.",
         "freeNoticeUnstable": "Free hesap proxy'si kararsız olabilir. Dikkatli kullanın.",
@@ -2414,6 +2441,9 @@
       "summaryMeta": "{{count}} hesap · {{scope}}",
       "summaryMetaUnconfigured": "Yapılandırılmadı · {{scope}}",
       "memberTitle": "Koleksiyon üyeleri",
+      "memberPlatformLabel": "Platform seçimi",
+      "memberPlatformAll": "Tüm platformlar",
+      "memberPlatformGrok": "Grok platformu hesapları",
       "imagePolicy": {
         "label": "Görsel politikası",
         "inherit": "Görsel: Otomatik",
@@ -2512,7 +2542,16 @@
       "apiPortUrl": "API Port URL​",
       "modelId": "Model ID​",
       "modelIdPlaceholder": "Model ID seçin",
-      "imageGenerationModel": { "label": "Görsel modeli", "custom": "Özel", "save": "Modeli kaydet", "placeholder": "Özel model kimliği girin", "description": "/v1/images/generations ve /v1/images/edits için kullanılır; varsayılan gpt-image-2.5.", "required": "Bir görsel modeli adı girin", "tooLong": "Görsel modeli adı çok uzun", "saveSuccess": "Görsel modeli güncellendi" },
+      "imageGenerationModel": {
+        "label": "Görsel modeli",
+        "custom": "Özel",
+        "save": "Modeli kaydet",
+        "placeholder": "Özel model kimliği girin",
+        "description": "/v1/images/generations ve /v1/images/edits için kullanılır; varsayılan gpt-image-2.5.",
+        "required": "Bir görsel modeli adı girin",
+        "tooLong": "Görsel modeli adı çok uzun",
+        "saveSuccess": "Görsel modeli güncellendi"
+      },
       "modelIdViewOnly": "Yalnızca görüntüle",
       "quotaPool": {
         "title": "Kota havuzu",
@@ -2677,8 +2716,41 @@
       "desc": "~/.codex/auth.json'dan mevcut hesabı içe aktar",
       "import": "Yerel hesabı al"
     },
+    "tempLogin": {
+      "tab": "Resmî oturum",
+      "desc": "Giriş tamamen resmî masaüstü istemcide gerçekleşir: yetkilendirme adresini resmî istemci üretir, yetkilendirme geri çağrısı ve token değişimi de resmî istemci tarafından yürütülür. Cockpit yetkilendirme geri çağrısına katılmaz; yalnızca resmî istemci kimlik bilgilerini diske yazdıktan sonra okuyup içe aktarır.",
+      "note": "Geçici profil, uygulama veri dizinindeki boş bir klasördür. Hesap okunduktan sonra istemcinin çalışma dizini ve anahtarlık kaydıyla birlikte silinir; varsayılan oturum ve çoklu oturumlar etkilenmez.",
+      "start": "Resmî istemciyi aç ve oturum aç",
+      "cancel": "Oturumu iptal et",
+      "cancelling": "Resmî oturum iptal ediliyor…",
+      "waitingHint": "Oturum açmayı resmî istemcide tamamlayın. Kimlik bilgileri algılandığında istemci otomatik kapanır (en fazla 10 dakika).",
+      "cancelled": "Resmî oturum iptal edildi ve geçici profil silindi.",
+      "failed": "Resmî oturum başarısız: {{error}}",
+      "success": "Hesap alındı: {{email}}",
+      "intercept": {
+        "toggle": "Tarayıcı açılışını yakala ve yetkilendirme adresini burada göster",
+        "hint": "Etkinleştirildiğinde resmî istemcide «Devam» seçeneğine basmak artık tarayıcıyı açmaz; resmî istemcinin ürettiği yetkilendirme adresini kopyalamanız için yalnızca burada gösterir. Herhangi bir tarayıcıdan giriş yaptıktan sonra yetkilendirme geri çağrısı ve token değişimi yine resmî masaüstü istemci tarafından yürütülür; Cockpit yetkilendirmeye katılmaz. Kapatıldığında resmî akış değişmeden işler."
+      },
+      "authUrl": {
+        "label": "Yetkilendirme adresi (resmî istemci üretir)",
+        "open": "Varsayılan tarayıcıda aç",
+        "openFailed": "Yetkilendirme adresi açılamadı: {{error}}",
+        "hint": "Adres resmî istemciden gelir ve yalnızca bu bilgisayardaki bir tarayıcıda açılır. Oturum açma bitene kadar resmî pencereyi kapatmayın.",
+        "unavailable": "Cockpit bu kez yetkilendirme adresini yakalayamadı. Resmî istemci tarayıcıyı her zamanki gibi açacak; oradan giriş yapabilirsiniz."
+      },
+      "phase": {
+        "prepare": "Geçici profili hazırla",
+        "launch": "Resmî istemciyi aç",
+        "wait": "Oturumu bekle",
+        "import": "Kimlik bilgilerini oku",
+        "close": "Resmî istemciyi kapat",
+        "clean": "Geçici profili sil"
+      }
+    },
     "import": {
       "localDesc": "Yerelde oturum açılmış oturumlardan Codex hesaplarını içe aktar.",
+      "localInstanceTitle": "Oturum seçin",
+      "localInstanceDesc": "Birden fazla Codex oturumu bulundu. Yerel hesabın hangi oturumdan alınacağını seçin:",
       "importing": "Yerel hesap içe aktarılıyor...",
       "successMsg": "İçe aktarma başarılı: {{email}}"
     },
@@ -3043,7 +3115,13 @@
         "syncNeedTwo": "Oturumları eşitlemek için en az iki örnek gerekir",
         "pickRestoreOne": "Lütfen geri yüklenecek en az bir oturum seçin",
         "repairVisibilitySkippedOnly": "Yazılabilir provider farkı bulunamadı; geçersiz veya bozuk {{count}} state_5.sqlite dosyası atlandı. Bu SQLite kayıtları onarılmadan önce Codex bu dosyaları yeniden oluşturmalıdır.",
-        "repairVisibilitySkippedWithBase": "{{message}}; geçersiz veya bozuk {{count}} state_5.sqlite dosyası atlandı. Bu SQLite kayıtları onarılmadan önce Codex bu dosyaları yeniden oluşturmalıdır."
+        "repairVisibilitySkippedWithBase": "{{message}}; geçersiz veya bozuk {{count}} state_5.sqlite dosyası atlandı. Bu SQLite kayıtları onarılmadan önce Codex bu dosyaları yeniden oluşturmalıdır.",
+        "trashSummary": "{{count}} sohbet çöp kutusuna taşındı ve resmi Codex'te silindi",
+        "trashSummaryFallback": "{{count}} sohbet çöp kutusuna taşındı ve resmi Codex oturum dizini yeniden oluşturma başlatıldı",
+        "trashSummaryRunningHint": "Çalışan örneklerde değişikliğin görünmesi için yenileme veya yeniden başlatma gerekebilir",
+        "trashSummaryFallbackHint": "{{count}} örnekte resmi silme tamamlanmadı; dosyalar doğrudan kaldırıldı ve Codex yeniden başlatıldığında eşitlenecek",
+        "trashSummaryRebuildFailedHint": "{{count}} örnekte resmi kenar çubuğu dizini yeniden oluşturulamadı; Codex yeniden başlatıldığında tekrar yükleyecek",
+        "trashSummaryEmpty": "Seçilen sohbetler mevcut örnek kümesinde yok, yapılacak bir şey yok"
       },
       "groupCount": "{{count}} oturum",
       "updatedAt": "Güncellendi",
@@ -3230,7 +3308,12 @@
         "subagent": "Alt ajan",
         "all": "Tüm türler"
       },
-      "pickInstancePrompt": "Oturum birden fazla örnekte var. Örnek kimliğini girin:"
+      "locationPicker": {
+        "title": "Örnek seç",
+        "hint": "Bu oturum birden fazla örnekte var. Dosya konumunun açılacağı örneği seçin:",
+        "rolloutHint": "Bu oturum birden fazla örnekte var. Oturum dosyasının açılacağı örneği seçin:",
+        "running": "Çalışıyor"
+      }
     },
     "sessionUsage": {
       "tab": "Kullanım",
@@ -3439,21 +3522,41 @@
         }
       }
     },
+    "grokAdd": {
+      "tab": "Grok Hesabı"
+    },
     "deepSeek": {
       "start": {
         "title": "DeepSeek başlat",
         "hint": "Başlamadan önce bağlantıyı ve modeli seçin. Ağ geçidi ve CDP, resmi Codex listesinde Flash / Pro değiştirir; doğrudan bağlantı ağ geçidi olmadan burada seçilen modelle başlar.",
         "accessMode": "Bağlantı",
         "gatewayMode": "Ağ geçidi",
-        "gatewayDesc": "Örnek yerel ağ geçidi yalnızca model adını yeniden yazar. Codex’te Flash / Pro görüp değiştirebilirsiniz.",
+        "gatewayDesc": "Yerel ağ geçidi gerekir. OAuth GPT hesabı bağlayıp tüm OAuth yeteneklerini (tarayıcı işlemleri vb.) kullanmanızı, Codex içinde model değiştirmenizi ve görsel üretimini GPT hesaplarına devretmenizi sağlar.",
         "directMode": "Resmi API",
-        "directDesc": "Ağ geçidi yok, resmi API’ye doğrudan. Codex içinde değişmez; her başlangıçta burada seçin.",
+        "directDesc": "Ağ geçidi yok ve daha hızlı. Codex içinde model değiştirilemez, OAuth yetenekleri ve görsel aktarımı yok.",
         "chatOnlyHint": "Chat Completions yalnızca yerel ağ geçidini kullanır. Başlangıç modelini burada seçin.",
         "model": "Başlangıç modeli",
         "confirm": "Başlat",
         "chooseAtStart": "Başlarken",
         "cdpMode": "CDP enjeksiyonu",
-        "cdpDesc": "Ağ geçidi olmadan resmi API. CDP, resmi Codex model listesini alır; Flash / Pro geçidi gibi değiştirilir."
+        "cdpDesc": "Enjeksiyonla resmi Codex model listesini devralır, hız doğrudan modla aynıdır. Resmi istemciye enjeksiyon gerekir; OAuth bağlama desteklenmez.",
+        "context": "Desteklenen bağlam",
+        "imageGen": "GPT görsel üretimi",
+        "imageGenHint": "Yalnızca ağ geçidi modunda. Sohbet yine bu sağlayıcının modelleriyle yürütülür; görsel üretimi özgün gpt-image hattını kullanır, seçilen GPT hesapları tarafından yürütülür ve kotalarını tüketir.",
+        "imageGenPick": "GPT hesabı seç",
+        "imageGenSelected": "{{count}} hesap seçildi",
+        "imageGenEmpty": "Hesap seçilmedi",
+        "imageGenLocked": "Hesap seçmek için işaretleyin",
+        "pickerTitle": "Görsel hesaplarını seç",
+        "pickerEmpty": "Görsel üretebilecek OAuth hesabı yok (Free ve API Key hesapları desteklenmez).",
+        "pickerSelectAll": "Tümünü seç",
+        "pickerClear": "Temizle",
+        "protocol": "Protokol",
+        "accessRoute": "Erişim",
+        "gatewayRequired": "Örnek yerel ağ geçidi",
+        "directUpstream": "Doğrudan üst sağlayıcı",
+        "gatewayHint": "Bu protokol dönüştürme için yerel ağ geçidini gerektirir; ağ geçidi Codex içinde model değiştirmeyi ve görsel aktarımını da sağlar.",
+        "directUpstreamHint": "Bu hesap üst sağlayıcıya doğrudan erişir, bu nedenle görsel aktarımı kullanılamaz."
       }
     },
     "modelProviders": {
@@ -3698,6 +3801,9 @@
           "planName": "Paket",
           "remaining": "Kalan kota",
           "balance": "Bakiye",
+          "totalBalance": "Toplam bakiye",
+          "grantedBalance": "Hediye bakiye",
+          "toppedUpBalance": "Yüklenen bakiye",
           "todayRequests": "Bugünkü istek",
           "todayTokens": "Bugünkü Token",
           "todayCost": "Bugünkü maliyet",
@@ -3923,6 +4029,8 @@
       "standardDesc": "Varsayılan hız, normal kullanım",
       "fast": "Hızlı",
       "fastDesc": "1,5x hız, daha yüksek kullanım",
+      "ultrafast": "Ultra hızlı",
+      "ultrafastDesc": "En hızlı yanıtlar, daha yüksek kullanım",
       "saveSuccess": "Hız güncellendi",
       "saveFailed": "Hız kaydedilemedi: {{error}}"
     },
@@ -4069,6 +4177,8 @@
         "saveOptions": "Seçenekleri kaydet",
         "immediateSseResponse": "Anında SSE 200",
         "maxConcurrentImageRequests": "Hesap başına görsel isteği",
+        "maxAccountConcurrency": "Hesap eşzamanlılığı",
+        "accountConcurrencyWait": "Bekleme (sn)",
         "optionsSaved": "Yönlendirme seçenekleri kaydedildi"
       },
       "validation": {
@@ -4380,6 +4490,33 @@
     "accounts": {
       "showRelayQuota": "Röle kotasını göster",
       "hideRelayQuota": "Röle kotasını gizle"
+    },
+    "instanceGateways": {
+      "entry": "Örnek ağ geçitleri",
+      "entryCount": "Örnek ağ geçitleri {{count}}",
+      "issueCount": "{{count}} sorunlu",
+      "title": "Örnek ağ geçitleri",
+      "subtitle": "Codex örnekleriyle birlikte başlatılan yerel ağ geçitleri",
+      "summary": "Toplam {{total}} · çalışan {{running}} · sorunlu {{issues}}",
+      "empty": "Örnek düzeyinde ağ geçidi yok",
+      "emptyHint": "Chat protokolünde API anahtarı hesabı bağlandığında veya karma model yönlendirmesi açıldığında otomatik olarak görünür.",
+      "kindProviderGateway": "Sağlayıcı ağ geçidi",
+      "kindMixedModel": "Karma model yönlendirmesi",
+      "kindBoundOauth": "Yerel OAuth ağ geçidi",
+      "statusUnreachable": "Başlatıldı ancak erişilemiyor",
+      "statusPortConflict": "Bağlantı noktası kullanımda",
+      "statusNotStarted": "Başlatılmadı",
+      "fieldAccount": "Hesap",
+      "fieldAddress": "Yerel adres",
+      "fieldProtocol": "Protokol",
+      "fieldModels": "Kaynak modeller",
+      "loadFailed": "Örnek ağ geçitleri yüklenemedi",
+      "stop": "Durdur",
+      "restart": "Yeniden başlat",
+      "stopConfirmTitle": "Bu örnek ağ geçidi durdurulsun mu?",
+      "stopConfirmDescription": "Karma model yönlendirme ağ geçidini durdurmak, o örneğin karma model yönlendirmesini de kapatır (kanal yapılandırması korunur); diğer ağ geçitleri “Yeniden başlat” ile geri getirilebilir.",
+      "stopFailed": "Ağ geçidi durdurulamadı: {{error}}",
+      "restartFailed": "Ağ geçidi yeniden başlatılamadı: {{error}}"
     }
   },
   "githubCopilot": {

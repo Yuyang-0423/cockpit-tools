@@ -1,5 +1,10 @@
 {
   "pelican": {
+    "results": "Risultati del test",
+    "usageTokens": "{{tokens}} token",
+    "quotaUsed": "5h usate {{percent}}%",
+    "quotaLeft": "5h rimaste {{percent}}%",
+    "openBrowser": "Apri nel browser",
     "error": {
       "stateUnavailable": "Stato dell’attività non disponibile. Riprova.",
       "accountsRequired": "Seleziona almeno un account.",
@@ -77,7 +82,8 @@
     "clearAll": "Pulisci tutto",
     "confirmClearAll": "Pulire tutti i test Pelican?",
     "clearAllHelp": "Tutta la cronologia dei test e i file generati verranno eliminati definitivamente. L’operazione non può essere annullata.",
-    "search": "Cerca account"
+    "search": "Cerca account",
+    "viewError": "Visualizza errore"
   },
   "common": {
     "quotaRefreshScheduler": {
@@ -117,6 +123,8 @@
     "windowsOperation": {
       "title": "Operazione Windows non completata",
       "accessDeniedDescription": "Windows ha negato l’operazione. Il programma può avere privilegi superiori o trovarsi in una posizione protetta.",
+      "storeLaunchBlockedDescription": "Windows non ha potuto avviare il client Codex configurato: la cartella dello Store potrebbe essere stata sostituita da un aggiornamento o non consentire più l’esecuzione. L’avvio diretto è stato bloccato per non aprire l’account sbagliato. Usa «Rileva di nuovo il percorso e riprova»; se fallisce ancora, passa questa istanza alla modalità CLI.",
+      "repairPath": "Rileva di nuovo il percorso e riprova",
       "fileInUseDescription": "Il file è utilizzato da un altro programma. Chiudilo e riprova.",
       "programNotFoundDescription": "Windows non ha trovato il programma necessario. Controlla l’installazione o il percorso configurato.",
       "portDeniedDescription": "Windows ha bloccato l’accesso alla porta. Potrebbe essere usata da un criterio di sistema o da un altro programma.",
@@ -605,7 +613,7 @@
         "summary": "I modelli senza prefisso utilizzano l'abbonamento corrente; i modelli con prefisso come cpa/gpt-5.5 vengono inoltrati a un'API di terze parti. Entrambi dipendono dal servizio di routing locale.",
         "rowSummary": "I modelli senza prefisso utilizzano l'abbonamento corrente; i modelli con prefisso come cpa/gpt-5.5 vengono inoltrati a un'API di terze parti. Entrambi dipendono dal servizio di routing locale.",
         "confirmEnableTitle": "Abilitare il routing API di terze parti?",
-        "confirmEnableMessage": "Le richieste dei modelli Codex verranno instradate tramite il servizio locale Cockpit Tools. Se il servizio non è in esecuzione, sia i modelli in abbonamento che quelli di terze parti potrebbero non essere disponibili. L'avvio al login verrà abilitato al salvataggio.\n\nAbilitare il routing?",
+        "confirmEnableMessage": "Le richieste dei modelli Codex verranno instradate tramite il servizio locale Cockpit Tools. Se il servizio non è in esecuzione, sia i modelli in abbonamento che quelli di terze parti potrebbero non essere disponibili.\n\nAbilitare il routing?",
         "confirmEnableAction": "Abilita",
         "confirmDisableTitle": "Disabilitare il routing API di terze parti?",
         "confirmDisableMessage": "Dopo che questa modifica avrà effetto, il gateway locale verrà arrestato, verrà ripristinato l'accesso nativo all'abbonamento e i modelli di terze parti non saranno disponibili.\n\nDisabilitare il routing?",
@@ -832,10 +840,11 @@
       "codexSyncWsl": "Sincronizza Codex con WSL",
       "codexSyncWslDesc": "Dopo il cambio dell'account Codex predefinito, anche auth.json e config.toml vengono scritti nella directory Codex in WSL.",
       "codexAppUiInjection": "Quota del servizio API",
-      "codexAppUiInjectionDesc": "Dopo il riavvio di un’istanza Codex, mostra sotto il composer il numero di account e le quote settimanale e di 5 ore del servizio API Cockpit Tools. Cockpit Tools deve restare in esecuzione in background; gli aggiornamenti si interrompono se viene chiuso del tutto o se la rete non è disponibile.",
+      "codexAppUiInjectionDesc": "Dopo il riavvio di un’istanza Codex, il badge della quota sotto il composer segue il modello selezionato: DeepSeek mostra il saldo dell’account, Grok la sua quota e i modelli GPT le quote settimanale e di 5 ore. Cockpit Tools deve restare in esecuzione in background; gli aggiornamenti si interrompono se viene chiuso del tutto o se la rete non è disponibile.",
       "codexAppUiInjectionPoolLabel": "Account",
       "codexAppUiInjectionWeeklyLabel": "Settimana",
       "codexAppUiInjectionFiveHourLabel": "5 h",
+      "codexAppUiInjectionMissingLabel": "—",
       "codexWslConfigDir": "Directory Codex WSL",
       "codexWslConfigDirDesc": "Inserisci la directory .codex in WSL. I percorsi \\\\wsl.localhost\\ sono supportati.",
       "codexWslConfigDirPlaceholder": "Esempio: \\\\wsl.localhost\\Ubuntu-24.04\\home\\user\\.codex",
@@ -2079,6 +2088,7 @@
       "manage": "Gestisci modelli",
       "disabledDescription": "Disattivata per impostazione predefinita. Modelli, ordine e livelli di ragionamento seguono il catalogo ufficiale.",
       "enabledDescription": "Il catalogo configurato è attivo. Puoi aggiungere o rimuovere modelli e l’elenco non si aggiorna più con il catalogo ufficiale.",
+      "routingManagedHint": "Il routing misto usa questo catalogo modelli solo durante l'esecuzione dell'istanza e lo ripristina all'arresto. Questo interruttore non cambia.",
       "enableConfirmTitle": "Attivare la gestione modelli?",
       "enableConfirmDescription": "Codex userà il catalogo configurato qui. Puoi regolare i modelli, ma l’elenco non si aggiornerà più automaticamente.",
       "enableConfirmAction": "Attiva e configura"
@@ -2183,6 +2193,24 @@
     "refreshAllSuccess": "Aggiornamento completato, {{count}} account riusciti",
     "refreshAllPartialFailed": "Aggiornamento completato, {{success}} / {{total}} account riusciti, alcuni non riusciti",
     "launchPreview": {
+      "accessModeTitle": "Modalità di avvio",
+      "prosLabel": "Vantaggi:",
+      "consLabel": "Svantaggi:",
+      "accessModeDescription": "Scegli come avviare DeepSeek; le modalità differiscono per cambio modello, OAuth e inoltro immagini.",
+      "accessModeGatewayPros": "1: Cambiare modello dentro Codex\n2: Collegare account OAuth e usare funzioni OAuth come la compattazione remota e il controllo del browser\n3: Configurare account GPT per inoltrare la generazione immagini",
+      "accessModeGatewayCons": "1: Richiede il gateway locale dell'istanza, quindi è un po' più lento del diretto",
+      "accessModeDirectPros": "1: Senza gateway, la modalità più veloce",
+      "accessModeDirectCons": "1: Nessun cambio modello in Codex, né collegamento OAuth né inoltro immagini",
+      "accessModeCdpPros": "1: Stessa velocità del diretto\n2: Flash / Pro commutabili nell'elenco ufficiale dei modelli Codex",
+      "accessModeCdpCons": "1: Richiede l'iniezione del client ufficiale, senza collegamento OAuth né inoltro immagini",
+      "imageGenPickerDesc": "Quando arriva una richiesta di immagine viene inoltrata: prima la gestisce il modello base, poi il modello immagine genera il risultato, consumando parte della quota degli account selezionati.",
+      "imageGenSwitchTitle": "Solo in modalità gateway",
+      "imageGenSwitchDescription": "Per attivare la generazione immagini GPT serve la modalità gateway. Passare a quella modalità e attivarla?",
+      "imageGenSwitchYes": "Sì",
+      "imageGenSwitchNo": "No",
+      "imageGenTitle": "Attiva generazione immagini GPT",
+      "oauthBindingHint": "Dopo il collegamento l’avvio è identico a quello di un account normale e sono disponibili tutte le funzionalità OAuth (compressione remota, controllo del browser, vari plugin e altro); le conversazioni restano sul provider dell’API Key corrente.",
+      "oauthBindingChange": "Cambia",
       "title": "Anteprima avvio Codex",
       "description": "Configura e verifica prima; il client cambia solo dopo aver scelto Cambia o Avvia.",
       "notApplied": "Non ancora applicato",
@@ -2331,6 +2359,7 @@
       "apiKey": "Chiave",
       "statusRunning": "In esecuzione",
       "statusStopped": "Arrestato",
+      "internalSchedulerLabel": "Scheduler interno",
       "statusDisabled": "Disattivato",
       "emptyMembers": "Nessun account nella raccolta",
       "footerHint": "Ambito accesso: {{scope}}",
@@ -2361,8 +2390,6 @@
         "restrictFreeToggle": "Limita account Free",
         "sessionAffinityConfirmTitle": "Attivare l’affinità di sessione?",
         "sessionAffinityDescription": "Una volta attivata, la stessa conversazione proverà a mantenere lo stesso account. Se non è disponibile, il routing può cambiarlo; dopo la scadenza verrà scelto di nuovo un account.",
-        "chatApiKeyUnsupported": "Chat Completions non supportato",
-        "deepseekUnsupported": "DeepSeek non ancora",
         "pendingOauthUnsupported": "Auth in sospeso esclusa",
         "freeNoticeRestricted": "Gli account Free sono limitati. Disattiva questa opzione per selezionarli.",
         "freeNoticeUnstable": "Il proxy degli account Free può essere instabile. Usalo con cautela.",
@@ -2414,6 +2441,9 @@
       "summaryMeta": "{{count}} account · {{scope}}",
       "summaryMetaUnconfigured": "Non configurato · {{scope}}",
       "memberTitle": "Membri della raccolta",
+      "memberPlatformLabel": "Piattaforma",
+      "memberPlatformAll": "Tutte le piattaforme",
+      "memberPlatformGrok": "Account della piattaforma Grok",
       "imagePolicy": {
         "label": "Politica immagini",
         "inherit": "Immagine: Automatica",
@@ -2512,7 +2542,16 @@
       "apiPortUrl": "URL porta API",
       "modelId": "ID modello",
       "modelIdPlaceholder": "Seleziona ID modello",
-      "imageGenerationModel": { "label": "Modello immagini", "custom": "Personalizzato", "save": "Salva modello", "placeholder": "Inserisci l’ID del modello personalizzato", "description": "Usato per /v1/images/generations e /v1/images/edits; il valore predefinito è gpt-image-2.5.", "required": "Inserisci il nome del modello immagini", "tooLong": "Il nome del modello immagini è troppo lungo", "saveSuccess": "Modello immagini aggiornato" },
+      "imageGenerationModel": {
+        "label": "Modello immagini",
+        "custom": "Personalizzato",
+        "save": "Salva modello",
+        "placeholder": "Inserisci l’ID del modello personalizzato",
+        "description": "Usato per /v1/images/generations e /v1/images/edits; il valore predefinito è gpt-image-2.5.",
+        "required": "Inserisci il nome del modello immagini",
+        "tooLong": "Il nome del modello immagini è troppo lungo",
+        "saveSuccess": "Modello immagini aggiornato"
+      },
       "modelIdViewOnly": "Solo vista",
       "quotaPool": {
         "title": "Pool quota",
@@ -2677,8 +2716,41 @@
       "desc": "Importa l'account attuale da ~/.codex/auth.json",
       "import": "Ottieni account locale"
     },
+    "tempLogin": {
+      "tab": "Accesso ufficiale",
+      "desc": "L'accesso avviene interamente nel client desktop ufficiale: l'URL di autorizzazione è generato dal client ufficiale, e anche il callback di autorizzazione e lo scambio del token sono gestiti dal client ufficiale. Cockpit non partecipa al callback di autorizzazione: legge e importa le credenziali solo dopo che il client ufficiale le ha salvate su disco.",
+      "note": "Il profilo temporaneo è una cartella vuota nella directory dati dell'app. Dopo la lettura dell'account viene eliminato insieme alla directory di esecuzione del client e alla voce del portachiavi; l'istanza predefinita e le istanze multiple non vengono toccate.",
+      "start": "Apri il client ufficiale e accedi",
+      "cancel": "Annulla accesso",
+      "cancelling": "Annullamento dell'accesso ufficiale…",
+      "waitingHint": "Completa l'accesso nel client ufficiale. Si chiude automaticamente quando rileva le credenziali (massimo 10 minuti).",
+      "cancelled": "Accesso ufficiale annullato e profilo temporaneo eliminato.",
+      "failed": "Accesso ufficiale non riuscito: {{error}}",
+      "success": "Account acquisito: {{email}}",
+      "intercept": {
+        "toggle": "Intercetta l'apertura del browser e mostra qui l'URL di autorizzazione",
+        "hint": "Se attivo, fare clic su «Continua» nel client ufficiale non apre più il browser: mostra qui l'URL di autorizzazione generato dal client ufficiale per copiarla. Dopo l'accesso da qualsiasi browser, il callback di autorizzazione e lo scambio del token restano a carico del client desktop ufficiale; Cockpit non partecipa all'autorizzazione. Se disattivo, il flusso ufficiale resta invariato."
+      },
+      "authUrl": {
+        "label": "URL di autorizzazione (generato dal client ufficiale)",
+        "open": "Apri nel browser predefinito",
+        "openFailed": "Impossibile aprire l'URL di autorizzazione: {{error}}",
+        "hint": "L'URL è generato dal client ufficiale e funziona solo in un browser di questo computer. Lascia aperta la finestra ufficiale fino al termine dell'accesso.",
+        "unavailable": "Questa volta Cockpit non ha intercettato l'URL di autorizzazione. Il client ufficiale aprirà il browser come al solito: accedi da lì."
+      },
+      "phase": {
+        "prepare": "Prepara il profilo temporaneo",
+        "launch": "Apri il client ufficiale",
+        "wait": "Attendi l'accesso",
+        "import": "Leggi le credenziali",
+        "close": "Chiudi il client ufficiale",
+        "clean": "Elimina il profilo temporaneo"
+      }
+    },
     "import": {
       "localDesc": "Importa account Codex da sessioni locali con accesso.",
+      "localInstanceTitle": "Seleziona istanza",
+      "localInstanceDesc": "Sono state rilevate più istanze Codex. Scegli da quale istanza importare l'account locale:",
       "importing": "Importazione dell'account locale...",
       "successMsg": "Importazione riuscita: {{email}}"
     },
@@ -3043,7 +3115,13 @@
         "syncNeedTwo": "Sono necessarie almeno due istanze per sincronizzare le sessioni",
         "pickRestoreOne": "Seleziona almeno una sessione da ripristinare",
         "repairVisibilitySkippedOnly": "Non sono state trovate differenze provider scrivibili; sono stati ignorati {{count}} file state_5.sqlite non validi o danneggiati. Codex deve rigenerarli prima di poter riparare i relativi record SQLite.",
-        "repairVisibilitySkippedWithBase": "{{message}}; sono stati ignorati {{count}} file state_5.sqlite non validi o danneggiati. Codex deve rigenerarli prima di poter riparare i relativi record SQLite."
+        "repairVisibilitySkippedWithBase": "{{message}}; sono stati ignorati {{count}} file state_5.sqlite non validi o danneggiati. Codex deve rigenerarli prima di poter riparare i relativi record SQLite.",
+        "trashSummary": "{{count}} conversazioni spostate nel cestino ed eliminate in Codex ufficiale",
+        "trashSummaryFallback": "{{count}} conversazioni spostate nel cestino e ricostruzione dell'indice delle sessioni di Codex ufficiale avviata",
+        "trashSummaryRunningHint": "Le istanze in esecuzione potrebbero richiedere un aggiornamento o un riavvio per mostrare la modifica",
+        "trashSummaryFallbackHint": "L'eliminazione ufficiale non è stata completata per {{count}} istanze; i file sono stati rimossi direttamente e Codex si sincronizzerà dopo il riavvio",
+        "trashSummaryRebuildFailedHint": "La ricostruzione dell'indice ufficiale della barra laterale non è stata completata per {{count}} istanze; Codex lo ricaricherà dopo il riavvio",
+        "trashSummaryEmpty": "Le conversazioni selezionate non esistono nell'insieme di istanze corrente, nessuna azione necessaria"
       },
       "groupCount": "{{count}} sessioni",
       "updatedAt": "Aggiornato",
@@ -3230,7 +3308,12 @@
         "subagent": "Sub-agente",
         "all": "Tutti"
       },
-      "pickInstancePrompt": "Sessione presente su più istanze. Inserisci ID istanza:"
+      "locationPicker": {
+        "title": "Scegli istanza",
+        "hint": "Questa sessione esiste su più istanze. Scegli da quale istanza aprire la posizione del file:",
+        "rolloutHint": "Questa sessione esiste su più istanze. Scegli da quale istanza aprire il file di sessione:",
+        "running": "In esecuzione"
+      }
     },
     "sessionUsage": {
       "tab": "Uso",
@@ -3439,21 +3522,41 @@
         }
       }
     },
+    "grokAdd": {
+      "tab": "Account Grok"
+    },
     "deepSeek": {
       "start": {
         "title": "Avvia DeepSeek",
         "hint": "Scegli connessione e modello prima di avviare. Gateway e CDP cambiano Flash / Pro nell'elenco ufficiale Codex; Diretto avvia senza gateway con il modello scelto qui.",
         "accessMode": "Connessione",
         "gatewayMode": "Elenco gateway",
-        "gatewayDesc": "Il gateway dell’istanza riscrive solo il nome modello. In Codex puoi vedere e cambiare Flash / Pro.",
+        "gatewayDesc": "Richiede il gateway locale. Consente di collegare account GPT OAuth e usare tutte le capacità OAuth (azioni del browser e altro), cambiare modello in Codex e affidare la generazione delle immagini agli account GPT.",
         "directMode": "API ufficiale",
-        "directDesc": "Niente gateway, API ufficiale diretta. In Codex non si cambia; scegli qui a ogni avvio.",
+        "directDesc": "Senza gateway e più veloce. Non consente di cambiare modello in Codex e non offre capacità OAuth né inoltro immagini.",
         "chatOnlyHint": "Chat Completions usa solo il gateway locale. Scegli qui il modello di avvio.",
         "model": "Modello",
         "confirm": "Avvia",
         "chooseAtStart": "All’avvio",
         "cdpMode": "Iniezione CDP",
-        "cdpDesc": "API ufficiale senza gateway. Il CDP prende l'elenco ufficiale Codex e consente di cambiare Flash / Pro come nel gateway."
+        "cdpDesc": "Rileva l'elenco ufficiale dei modelli di Codex tramite injection, con la stessa velocità della modalità diretta. Richiede l'injection del client ufficiale; il collegamento OAuth non è supportato.",
+        "context": "Contesto supportato",
+        "imageGen": "Generazione immagini GPT",
+        "imageGenHint": "Solo in modalità gateway. La chat continua sui modelli di questo fornitore; la generazione immagini usa la pipeline gpt-image originale, eseguita dagli account GPT selezionati e consuma la loro quota.",
+        "imageGenPick": "Scegli account GPT",
+        "imageGenSelected": "{{count}} account selezionati",
+        "imageGenEmpty": "Nessun account selezionato",
+        "imageGenLocked": "Spunta per scegliere gli account",
+        "pickerTitle": "Scegli account per le immagini",
+        "pickerEmpty": "Nessun account OAuth può generare immagini (account Free e API Key non supportati).",
+        "pickerSelectAll": "Seleziona tutto",
+        "pickerClear": "Pulisci",
+        "protocol": "Protocollo",
+        "accessRoute": "Accesso",
+        "gatewayRequired": "Gateway locale dell'istanza",
+        "directUpstream": "Diretto all'upstream",
+        "gatewayHint": "Questo protocollo richiede il gateway locale per la conversione, che consente anche di cambiare modello in Codex e di inoltrare le immagini.",
+        "directUpstreamHint": "Questo account accede direttamente all'upstream, quindi l'inoltro immagini non è disponibile."
       }
     },
     "modelProviders": {
@@ -3698,6 +3801,9 @@
           "planName": "Piano",
           "remaining": "Credito residuo",
           "balance": "Saldo",
+          "totalBalance": "Saldo totale",
+          "grantedBalance": "Saldo bonus",
+          "toppedUpBalance": "Saldo ricaricato",
           "todayRequests": "Richieste oggi",
           "todayTokens": "Token oggi",
           "todayCost": "Costo oggi",
@@ -3923,6 +4029,8 @@
       "standardDesc": "Velocità predefinita, uso normale",
       "fast": "Rapida",
       "fastDesc": "Velocità 1,5x, uso maggiore",
+      "ultrafast": "Ultraveloce",
+      "ultrafastDesc": "Risposte più rapide, uso maggiore",
       "saveSuccess": "Velocità aggiornata",
       "saveFailed": "Impossibile salvare la velocità: {{error}}"
     },
@@ -4069,6 +4177,8 @@
         "saveOptions": "Salva opzioni",
         "immediateSseResponse": "SSE 200 immediato",
         "maxConcurrentImageRequests": "Richieste di immagini per account",
+        "maxAccountConcurrency": "Concorrenza per account",
+        "accountConcurrencyWait": "Attesa (s)",
         "optionsSaved": "Opzioni routing salvate"
       },
       "validation": {
@@ -4380,6 +4490,33 @@
     "accounts": {
       "showRelayQuota": "Mostra quota relay",
       "hideRelayQuota": "Nascondi quota relay"
+    },
+    "instanceGateways": {
+      "entry": "Gateway di istanza",
+      "entryCount": "Gateway di istanza {{count}}",
+      "issueCount": "{{count}} con problemi",
+      "title": "Gateway di istanza",
+      "subtitle": "Gateway locali avviati con le istanze Codex",
+      "summary": "{{total}} in totale · {{running}} attivi · {{issues}} con problemi",
+      "empty": "Nessun gateway a livello di istanza",
+      "emptyHint": "Compaiono automaticamente dopo il collegamento di un account con chiave API in protocollo Chat o l'attivazione del routing multi-modello.",
+      "kindProviderGateway": "Gateway del fornitore",
+      "kindMixedModel": "Routing multi-modello",
+      "kindBoundOauth": "Gateway OAuth locale",
+      "statusUnreachable": "Avviato ma non raggiungibile",
+      "statusPortConflict": "Porta occupata",
+      "statusNotStarted": "Non avviato",
+      "fieldAccount": "Account",
+      "fieldAddress": "Indirizzo locale",
+      "fieldProtocol": "Protocollo",
+      "fieldModels": "Modelli upstream",
+      "loadFailed": "Impossibile caricare i gateway di istanza",
+      "stop": "Arresta",
+      "restart": "Riavvia",
+      "stopConfirmTitle": "Arrestare questo gateway dell'istanza?",
+      "stopConfirmDescription": "Arrestare un gateway di routing misto disattiva anche il routing misto di quell'istanza (la configurazione dei canali viene mantenuta); gli altri gateway si riavviano con «Riavvia».",
+      "stopFailed": "Arresto del gateway non riuscito: {{error}}",
+      "restartFailed": "Riavvio del gateway non riuscito: {{error}}"
     }
   },
   "githubCopilot": {

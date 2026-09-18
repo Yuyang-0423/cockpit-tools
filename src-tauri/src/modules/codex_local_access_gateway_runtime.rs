@@ -28,7 +28,7 @@ async fn ensure_gateway_matches_runtime_once_locked() -> Result<(), String> {
         return Ok(());
     };
 
-    if !collection.enabled {
+    if !local_access_gateway_should_run(&collection) {
         stop_gateway_locked().await;
         return Ok(());
     }
@@ -1247,7 +1247,7 @@ pub async fn activate_local_access_for_dir(
         .collection
         .clone()
         .ok_or_else(|| "API 服务集合尚未创建".to_string())?;
-    write_local_access_profile_takeover(profile_dir, &collection, None).await?;
+    write_local_access_profile_takeover(profile_dir, &collection, None, true).await?;
     Ok(state)
 }
 
@@ -1284,12 +1284,14 @@ fn new_empty_local_access_collection() -> Result<CodexLocalAccessCollection, Str
         image_generation_mode: CodexLocalAccessImageGenerationMode::default(),
         image_generation_model: DEFAULT_CODEX_IMAGE_GENERATION_MODEL.to_string(),
         image_generation_account_policies: HashMap::new(),
+        image_generation_account_ids: Vec::new(),
         gateway_mode: CodexLocalAccessGatewayMode::default(),
         upstream_proxy_url: None,
         routing_strategy: CodexLocalAccessRoutingStrategy::default(),
         custom_routing_rules: Vec::new(),
         account_model_rules: Vec::new(),
         model_aliases: Vec::new(),
+        suppress_oauth_model_alias: false,
         model_pricing_version: DEFAULT_MODEL_PRICING_VERSION,
         model_pricings: Vec::new(),
         excluded_models: Vec::new(),
@@ -1307,6 +1309,8 @@ fn new_empty_local_access_collection() -> Result<CodexLocalAccessCollection, Str
         debug_logs: true,
         immediate_sse_response: false,
         max_concurrent_image_requests: 1,
+        max_account_concurrency: 0,
+        account_concurrency_wait_ms: DEFAULT_ACCOUNT_CONCURRENCY_WAIT_MS,
         bound_oauth_account_id: None,
         bound_oauth_quota_reserve: None,
         account_ids: Vec::new(),

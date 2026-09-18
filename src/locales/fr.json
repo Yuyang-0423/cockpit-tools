@@ -1,5 +1,10 @@
 {
   "pelican": {
+    "results": "Résultats du test",
+    "usageTokens": "{{tokens}} jetons",
+    "quotaUsed": "5h utilisées {{percent}}%",
+    "quotaLeft": "5h restantes {{percent}}%",
+    "openBrowser": "Ouvrir dans le navigateur",
     "error": {
       "stateUnavailable": "État de la tâche indisponible. Réessayez.",
       "accountsRequired": "Sélectionnez au moins un compte.",
@@ -77,7 +82,8 @@
     "clearAll": "Tout nettoyer",
     "confirmClearAll": "Nettoyer tous les tests Pelican ?",
     "clearAllHelp": "Tout l’historique des tests et les fichiers générés seront définitivement supprimés. Cette action est irréversible.",
-    "search": "Rechercher un compte"
+    "search": "Rechercher un compte",
+    "viewError": "Voir l’erreur"
   },
   "common": {
     "quotaRefreshScheduler": {
@@ -117,6 +123,8 @@
     "windowsOperation": {
       "title": "Opération Windows inachevée",
       "accessDeniedDescription": "Windows a refusé cette opération. La cible peut s’exécuter avec des droits supérieurs ou se trouver dans un emplacement protégé.",
+      "storeLaunchBlockedDescription": "Windows n’a pas pu exécuter le client Codex configuré : le dossier du Store a peut-être été remplacé par une mise à jour ou n’autorise plus l’exécution. Le lancement direct a été bloqué pour ne pas ouvrir le mauvais compte. Utilisez « Redétecter le chemin et réessayer » ; si l’échec persiste, passez cette instance en mode CLI.",
+      "repairPath": "Redétecter le chemin et réessayer",
       "fileInUseDescription": "Le fichier cible est utilisé par un autre programme. Fermez-le puis réessayez.",
       "programNotFoundDescription": "Windows n’a pas trouvé le programme requis. Vérifiez l’installation ou le chemin configuré.",
       "portDeniedDescription": "Windows a bloqué l’accès au port. Une stratégie système ou un autre programme peut l’utiliser.",
@@ -605,7 +613,7 @@
         "summary": "Les modèles sans préfixe utilisent l'abonnement actuel ; les modèles avec préfixe tels que cpa/gpt-5.5 sont transférés vers une API tierce. Les deux dépendent du service de routage local.",
         "rowSummary": "Les modèles sans préfixe utilisent l'abonnement actuel ; les modèles avec préfixe tels que cpa/gpt-5.5 sont transférés vers une API tierce. Les deux dépendent du service de routage local.",
         "confirmEnableTitle": "Activer le routage d'API tierce ?",
-        "confirmEnableMessage": "Les requêtes de modèles Codex seront acheminées via le service local Cockpit Tools. Si le service n'est pas en cours d'exécution, les modèles d'abonnement et tiers peuvent être indisponibles. Le lancement au démarrage sera activé lors de l'enregistrement.\n\nActiver le routage ?",
+        "confirmEnableMessage": "Les requêtes de modèles Codex seront acheminées via le service local Cockpit Tools. Si le service n'est pas en cours d'exécution, les modèles d'abonnement et tiers peuvent être indisponibles.\n\nActiver le routage ?",
         "confirmEnableAction": "Activer",
         "confirmDisableTitle": "Désactiver le routage d'API tierce ?",
         "confirmDisableMessage": "Une fois cette modification appliquée, la passerelle locale s'arrêtera, l'accès direct à l'abonnement officiel sera restauré et les modèles tiers ne seront plus disponibles.\n\nDésactiver le routage ?",
@@ -832,10 +840,11 @@
       "codexSyncWsl": "Synchroniser Codex vers WSL",
       "codexSyncWslDesc": "Après le changement du compte Codex par défaut, auth.json et config.toml sont aussi écrits dans le dossier Codex de WSL.",
       "codexAppUiInjection": "Quota du service API",
-      "codexAppUiInjectionDesc": "Après le redémarrage d’une instance Codex, afficher sous le compositeur le nombre de comptes et les quotas hebdomadaire et de 5 heures du service API Cockpit Tools. Cockpit Tools doit rester actif en arrière-plan ; les mises à jour s’arrêtent après sa fermeture complète ou si le réseau est indisponible.",
+      "codexAppUiInjectionDesc": "Après le redémarrage d’une instance Codex, le badge de quota sous le compositeur suit le modèle sélectionné : DeepSeek affiche le solde du compte, Grok son quota et les modèles GPT les quotas hebdomadaire et de 5 heures. Cockpit Tools doit rester actif en arrière-plan ; les mises à jour s’arrêtent après sa fermeture complète ou si le réseau est indisponible.",
       "codexAppUiInjectionPoolLabel": "Comptes",
       "codexAppUiInjectionWeeklyLabel": "Semaine",
       "codexAppUiInjectionFiveHourLabel": "5 h",
+      "codexAppUiInjectionMissingLabel": "—",
       "codexWslConfigDir": "Dossier Codex WSL",
       "codexWslConfigDirDesc": "Saisissez le dossier .codex dans WSL. Les chemins \\\\wsl.localhost\\ sont pris en charge.",
       "codexWslConfigDirPlaceholder": "Exemple : \\\\wsl.localhost\\Ubuntu-24.04\\home\\user\\.codex",
@@ -2079,6 +2088,7 @@
       "manage": "Gérer les modèles",
       "disabledDescription": "Désactivée par défaut. Les modèles, leur ordre et les niveaux de raisonnement suivent le catalogue officiel.",
       "enabledDescription": "Le catalogue configuré est actif. Vous pouvez ajouter ou retirer des modèles, et la liste ne suit plus automatiquement le catalogue officiel.",
+      "routingManagedHint": "Le routage multi-modèles utilise ce catalogue de modèles uniquement pendant l'exécution de l'instance et le restaure à l'arrêt. Ce commutateur n'est pas modifié.",
       "enableConfirmTitle": "Activer la gestion des modèles ?",
       "enableConfirmDescription": "Codex utilisera le catalogue configuré ici. Vous pourrez ajuster les modèles, mais la liste ne sera plus mise à jour automatiquement.",
       "enableConfirmAction": "Activer et configurer"
@@ -2183,6 +2193,24 @@
     "refreshAllSuccess": "Actualisation terminée, {{count}} compte(s) réussi(s)",
     "refreshAllPartialFailed": "Actualisation terminée, {{success}} / {{total}} compte(s) réussi(s), certains ont échoué",
     "launchPreview": {
+      "accessModeTitle": "Mode de démarrage",
+      "prosLabel": "Avantages :",
+      "consLabel": "Inconvénients :",
+      "accessModeDescription": "Choisissez le mode de démarrage de DeepSeek ; les modes diffèrent sur le changement de modèle, OAuth et la redirection d'images.",
+      "accessModeGatewayPros": "1 : Changer de modèle directement dans Codex\n2 : Lier des comptes OAuth et utiliser les fonctions OAuth comme la compaction distante et le pilotage du navigateur\n3 : Configurer des comptes GPT pour rediriger la génération d'images",
+      "accessModeGatewayCons": "1 : Nécessite la passerelle locale de l'instance, donc un peu plus lent que le direct",
+      "accessModeDirectPros": "1 : Sans passerelle, le plus rapide",
+      "accessModeDirectCons": "1 : Pas de changement de modèle dans Codex, ni liaison OAuth ni redirection d'images",
+      "accessModeCdpPros": "1 : Même vitesse que le direct\n2 : Flash / Pro commutables dans la liste officielle des modèles Codex",
+      "accessModeCdpCons": "1 : Nécessite l'injection du client officiel, sans liaison OAuth ni redirection d'images",
+      "imageGenPickerDesc": "Lorsqu'une demande d'image arrive, elle est redirigée : le modèle de base la traite d'abord, puis le modèle d'image génère le visuel, ce qui consomme une partie du quota des comptes sélectionnés.",
+      "imageGenSwitchTitle": "Uniquement en mode passerelle",
+      "imageGenSwitchDescription": "L'activation de la génération d'images GPT nécessite le mode passerelle. Passer à ce mode et l'activer ?",
+      "imageGenSwitchYes": "Oui",
+      "imageGenSwitchNo": "Non",
+      "imageGenTitle": "Activer la génération d'images GPT",
+      "oauthBindingHint": "Après la liaison, le démarrage est identique à celui d’un compte normal et toutes les capacités OAuth (compression à distance, contrôle du navigateur, divers plugins, etc.) sont disponibles ; les conversations passent toujours par le fournisseur de la clé API actuelle.",
+      "oauthBindingChange": "Changer",
       "title": "Aperçu du lancement de Codex",
       "description": "Configurez et vérifiez d’abord ; le client ne change qu’après avoir choisi Basculer ou Démarrer.",
       "notApplied": "Pas encore appliqué",
@@ -2331,6 +2359,7 @@
       "apiKey": "Clé",
       "statusRunning": "Actif",
       "statusStopped": "Arrêté",
+      "internalSchedulerLabel": "Planificateur interne",
       "statusDisabled": "Désactivé",
       "emptyMembers": "Aucun compte dans la collection",
       "footerHint": "Portée d’accès : {{scope}}",
@@ -2361,8 +2390,6 @@
         "restrictFreeToggle": "Limiter les comptes Free",
         "sessionAffinityConfirmTitle": "Activer l’affinité de session ?",
         "sessionAffinityDescription": "Une fois activée, une même conversation essaie de conserver le même compte. S’il est indisponible, le routage peut en changer ; après expiration, un compte est sélectionné à nouveau.",
-        "chatApiKeyUnsupported": "Chat Completions non pris en charge",
-        "deepseekUnsupported": "DeepSeek pas encore",
         "pendingOauthUnsupported": "Auth en attente exclue",
         "freeNoticeRestricted": "Les comptes Free sont limités. Désactivez ceci pour les sélectionner.",
         "freeNoticeUnstable": "Le proxy des comptes Free peut être instable. À utiliser avec prudence.",
@@ -2414,6 +2441,9 @@
       "summaryMeta": "{{count}} comptes · {{scope}}",
       "summaryMetaUnconfigured": "Non configuré · {{scope}}",
       "memberTitle": "Membres de la collection",
+      "memberPlatformLabel": "Plateforme",
+      "memberPlatformAll": "Toutes les plateformes",
+      "memberPlatformGrok": "Comptes de la plateforme Grok",
       "imagePolicy": {
         "label": "Politique d’image",
         "inherit": "Image : Auto",
@@ -2512,7 +2542,16 @@
       "apiPortUrl": "URL du port API",
       "modelId": "ID du modèle",
       "modelIdPlaceholder": "Sélectionner l'ID du modèle",
-      "imageGenerationModel": { "label": "Modèle d’image", "custom": "Personnalisé", "save": "Enregistrer le modèle", "placeholder": "Saisir un ID de modèle personnalisé", "description": "Utilisé pour /v1/images/generations et /v1/images/edits ; la valeur par défaut est gpt-image-2.5.", "required": "Saisissez un nom de modèle d’image", "tooLong": "Le nom du modèle d’image est trop long", "saveSuccess": "Modèle d’image mis à jour" },
+      "imageGenerationModel": {
+        "label": "Modèle d’image",
+        "custom": "Personnalisé",
+        "save": "Enregistrer le modèle",
+        "placeholder": "Saisir un ID de modèle personnalisé",
+        "description": "Utilisé pour /v1/images/generations et /v1/images/edits ; la valeur par défaut est gpt-image-2.5.",
+        "required": "Saisissez un nom de modèle d’image",
+        "tooLong": "Le nom du modèle d’image est trop long",
+        "saveSuccess": "Modèle d’image mis à jour"
+      },
       "modelIdViewOnly": "Lecture seule",
       "quotaPool": {
         "title": "Pool de quotas",
@@ -2677,8 +2716,41 @@
       "desc": "Importer le compte connecté depuis ~/.codex/auth.json",
       "import": "Récupérer le compte local"
     },
+    "tempLogin": {
+      "tab": "Connexion officielle",
+      "desc": "La connexion se déroule entièrement dans le client de bureau officiel : l'URL d'autorisation est générée par le client officiel, et le rappel d'autorisation ainsi que l'échange de jeton sont également gérés par le client officiel. Cockpit ne participe pas au rappel d'autorisation : il ne lit et n'importe les identifiants qu'après leur enregistrement par le client officiel.",
+      "note": "Le profil temporaire est un dossier vide dans le répertoire de données de l'application. Après la lecture du compte, il est supprimé avec le dossier d'exécution du client et l'entrée du trousseau ; l'instance par défaut et les instances multiples ne sont pas affectées.",
+      "start": "Ouvrir le client officiel et se connecter",
+      "cancel": "Annuler la connexion",
+      "cancelling": "Annulation de la connexion officielle…",
+      "waitingHint": "Terminez la connexion dans le client officiel. Il se ferme automatiquement dès que les identifiants sont détectés (10 minutes maximum).",
+      "cancelled": "Connexion officielle annulée et profil temporaire supprimé.",
+      "failed": "Échec de la connexion officielle : {{error}}",
+      "success": "Compte récupéré : {{email}}",
+      "intercept": {
+        "toggle": "Intercepter l'ouverture du navigateur et afficher l'URL d'autorisation ici",
+        "hint": "Une fois activé, cliquer sur « Continuer » dans le client officiel n'ouvre plus de navigateur : l'URL d'autorisation générée par le client officiel s'affiche ici pour être copiée. Après la connexion depuis n'importe quel navigateur, le rappel d'autorisation et l'échange de jeton restent gérés par le client de bureau officiel ; Cockpit ne participe pas à l'autorisation. Désactivé, le flux officiel reste inchangé."
+      },
+      "authUrl": {
+        "label": "URL d'autorisation (générée par le client officiel)",
+        "open": "Ouvrir dans le navigateur par défaut",
+        "openFailed": "Impossible d'ouvrir l'URL d'autorisation : {{error}}",
+        "hint": "L'URL provient du client officiel et ne fonctionne que dans un navigateur de cet ordinateur. Gardez la fenêtre officielle ouverte jusqu'à la fin de la connexion.",
+        "unavailable": "Cette fois, Cockpit n'a pas pu intercepter l'URL d'autorisation. Le client officiel ouvrira le navigateur comme d'habitude : connectez-vous depuis celui-ci."
+      },
+      "phase": {
+        "prepare": "Préparer le profil temporaire",
+        "launch": "Ouvrir le client officiel",
+        "wait": "Attendre la connexion",
+        "import": "Lire les identifiants",
+        "close": "Fermer le client officiel",
+        "clean": "Supprimer le profil temporaire"
+      }
+    },
     "import": {
       "localDesc": "Importer des comptes Codex depuis des sessions locales connectées.",
+      "localInstanceTitle": "Sélectionner l'instance",
+      "localInstanceDesc": "Plusieurs instances Codex ont été détectées. Choisissez l'instance dont importer le compte local :",
       "importing": "Importation du compte local...",
       "successMsg": "Importation réussie : {{email}}"
     },
@@ -3043,7 +3115,13 @@
         "syncNeedTwo": "Au moins deux instances sont nécessaires pour synchroniser les sessions",
         "pickRestoreOne": "Veuillez sélectionner au moins une session à restaurer",
         "repairVisibilitySkippedOnly": "Aucune différence de fournisseur inscriptible n’a été trouvée ; {{count}} fichier(s) state_5.sqlite invalides ou corrompus ont été ignorés. Codex doit les régénérer avant que leurs enregistrements SQLite puissent être réparés.",
-        "repairVisibilitySkippedWithBase": "{{message}} ; {{count}} fichier(s) state_5.sqlite invalides ou corrompus ont été ignorés. Codex doit les régénérer avant que leurs enregistrements SQLite puissent être réparés."
+        "repairVisibilitySkippedWithBase": "{{message}} ; {{count}} fichier(s) state_5.sqlite invalides ou corrompus ont été ignorés. Codex doit les régénérer avant que leurs enregistrements SQLite puissent être réparés.",
+        "trashSummary": "{{count}} conversations déplacées dans la corbeille et supprimées dans Codex officiel",
+        "trashSummaryFallback": "{{count}} conversations déplacées dans la corbeille et reconstruction de l'index des sessions de Codex officiel déclenchée",
+        "trashSummaryRunningHint": "Les instances en cours d'exécution peuvent nécessiter un rafraîchissement ou un redémarrage",
+        "trashSummaryFallbackHint": "La suppression officielle n'a pas abouti pour {{count}} instances ; les fichiers ont été supprimés directement et Codex se synchronisera après un redémarrage",
+        "trashSummaryRebuildFailedHint": "La reconstruction de l'index officiel de la barre latérale n'a pas abouti pour {{count}} instances ; Codex le rechargera après un redémarrage",
+        "trashSummaryEmpty": "Les conversations sélectionnées n'existent pas dans les instances actuelles, rien à faire"
       },
       "groupCount": "{{count}} sessions​",
       "updatedAt": "Mis à jour",
@@ -3230,7 +3308,12 @@
         "subagent": "Sous-agent",
         "all": "Tous types"
       },
-      "pickInstancePrompt": "Session présente sur plusieurs instances. Saisir l’ID d’instance :"
+      "locationPicker": {
+        "title": "Choisir l’instance",
+        "hint": "Cette session existe sur plusieurs instances. Choisissez l’instance dont ouvrir l’emplacement du fichier :",
+        "rolloutHint": "Cette session existe sur plusieurs instances. Choisissez l’instance dont ouvrir le fichier de session :",
+        "running": "En cours"
+      }
     },
     "sessionUsage": {
       "tab": "Usage",
@@ -3439,21 +3522,41 @@
         }
       }
     },
+    "grokAdd": {
+      "tab": "Compte Grok"
+    },
     "deepSeek": {
       "start": {
         "title": "Démarrer DeepSeek",
         "hint": "Choisissez le mode et le modèle avant de lancer. Passerelle et CDP permettent de changer Flash / Pro dans la liste officielle Codex ; Direct lance sans passerelle avec le modèle choisi ici.",
         "accessMode": "Connexion",
         "gatewayMode": "Liste passerelle",
-        "gatewayDesc": "La passerelle d’instance ne réécrit que le nom du modèle. Codex peut afficher et changer Flash / Pro.",
+        "gatewayDesc": "Nécessite la passerelle locale. Permet de lier des comptes GPT OAuth et d'utiliser toutes les capacités OAuth (actions du navigateur, etc.), de changer de modèle dans Codex et de confier la génération d'images aux comptes GPT.",
         "directMode": "API officielle",
-        "directDesc": "Sans passerelle, API officielle directe. Pas de changement dans Codex ; choisissez ici à chaque démarrage.",
+        "directDesc": "Sans passerelle, plus rapide. Impossible de changer de modèle dans Codex, et aucune capacité OAuth ni transfert d'images.",
         "chatOnlyHint": "Chat Completions passe uniquement par la passerelle locale. Choisissez le modèle ici.",
         "model": "Modèle",
         "confirm": "Démarrer",
         "chooseAtStart": "Au démarrage",
         "cdpMode": "Injection CDP",
-        "cdpDesc": "API officielle sans passerelle. Le CDP reprend la liste officielle Codex pour changer Flash / Pro comme en mode passerelle."
+        "cdpDesc": "Prend le contrôle de la liste de modèles officielle de Codex par injection, à la même vitesse que le mode direct. Nécessite d'injecter le client officiel ; la liaison OAuth n'est pas prise en charge.",
+        "context": "Contexte pris en charge",
+        "imageGen": "Génération d'images GPT",
+        "imageGenHint": "Uniquement en mode passerelle. Le chat reste traité par les modèles de ce fournisseur ; la génération d'images utilise le pipeline gpt-image d'origine, exécuté par les comptes GPT sélectionnés et consomme leur quota.",
+        "imageGenPick": "Choisir des comptes GPT",
+        "imageGenSelected": "{{count}} compte(s) sélectionné(s)",
+        "imageGenEmpty": "Aucun compte sélectionné",
+        "imageGenLocked": "Cochez pour choisir des comptes",
+        "pickerTitle": "Choisir les comptes d'images",
+        "pickerEmpty": "Aucun compte OAuth ne peut générer d'images (comptes Free et API Key non pris en charge).",
+        "pickerSelectAll": "Tout sélectionner",
+        "pickerClear": "Effacer",
+        "protocol": "Protocole",
+        "accessRoute": "Accès",
+        "gatewayRequired": "Passerelle locale de l'instance",
+        "directUpstream": "Direct vers l'amont",
+        "gatewayHint": "Ce protocole nécessite la passerelle locale pour la conversion, qui permet aussi de changer de modèle dans Codex et d'effectuer le transfert d'images.",
+        "directUpstreamHint": "Ce compte accède directement à l'amont, le transfert d'images n'est donc pas disponible."
       }
     },
     "modelProviders": {
@@ -3698,6 +3801,9 @@
           "planName": "Forfait",
           "remaining": "Crédit restant",
           "balance": "Solde",
+          "totalBalance": "Solde total",
+          "grantedBalance": "Solde offert",
+          "toppedUpBalance": "Solde rechargé",
           "todayRequests": "Requêtes du jour",
           "todayTokens": "Tokens du jour",
           "todayCost": "Coût du jour",
@@ -3923,6 +4029,8 @@
       "standardDesc": "Vitesse par défaut, usage normal",
       "fast": "Rapide",
       "fastDesc": "Vitesse 1,5x, usage accru",
+      "ultrafast": "Ultra rapide",
+      "ultrafastDesc": "Réponses les plus rapides, usage accru",
       "saveSuccess": "Vitesse mise à jour",
       "saveFailed": "Impossible d’enregistrer la vitesse : {{error}}"
     },
@@ -4069,6 +4177,8 @@
         "saveOptions": "Enregistrer",
         "immediateSseResponse": "SSE 200 immédiat",
         "maxConcurrentImageRequests": "Requêtes d'images par compte",
+        "maxAccountConcurrency": "Concurrence par compte",
+        "accountConcurrencyWait": "Attente (s)",
         "optionsSaved": "Options de routage enregistrées"
       },
       "validation": {
@@ -4380,6 +4490,33 @@
     "accounts": {
       "showRelayQuota": "Afficher quota relais",
       "hideRelayQuota": "Masquer quota relais"
+    },
+    "instanceGateways": {
+      "entry": "Passerelles d'instance",
+      "entryCount": "Passerelles d'instance {{count}}",
+      "issueCount": "{{count}} en anomalie",
+      "title": "Passerelles d'instance",
+      "subtitle": "Passerelles locales démarrées avec les instances Codex",
+      "summary": "{{total}} au total · {{running}} en cours · {{issues}} en anomalie",
+      "empty": "Aucune passerelle au niveau de l'instance",
+      "emptyHint": "Elles apparaissent automatiquement après la liaison d'un compte à clé API en protocole Chat ou l'activation du routage multi-modèles.",
+      "kindProviderGateway": "Passerelle du fournisseur",
+      "kindMixedModel": "Routage multi-modèles",
+      "kindBoundOauth": "Passerelle OAuth locale",
+      "statusUnreachable": "Démarrée mais inaccessible",
+      "statusPortConflict": "Port occupé",
+      "statusNotStarted": "Non démarrée",
+      "fieldAccount": "Compte",
+      "fieldAddress": "Adresse locale",
+      "fieldProtocol": "Protocole",
+      "fieldModels": "Modèles amont",
+      "loadFailed": "Échec du chargement des passerelles d'instance",
+      "stop": "Arrêter",
+      "restart": "Redémarrer",
+      "stopConfirmTitle": "Arrêter cette passerelle d'instance ?",
+      "stopConfirmDescription": "Arrêter une passerelle de routage multi-modèles désactive aussi le routage multi-modèles de cette instance (la configuration des canaux est conservée) ; les autres passerelles peuvent être relancées avec « Redémarrer ».",
+      "stopFailed": "Échec de l'arrêt de la passerelle : {{error}}",
+      "restartFailed": "Échec du redémarrage de la passerelle : {{error}}"
     }
   },
   "githubCopilot": {
